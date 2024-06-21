@@ -3,25 +3,38 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dotenvx": "dotenvx",
+    "dev": "dotenvx run -f .env.example -- next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "grpc:generate": "mkdir -p ./protos && protoc -I ./pb  --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=esModuleInterop=true --ts_proto_out=./protos --ts_proto_opt=outputServices=grpc-js demo.proto"
   },
   "dependencies": {
     "@repo/ui": "*",
+    "@dotenvx/dotenvx": "^0.45.0",
+    "@grpc/grpc-js": "^1.10.9",
+    "@openfeature/flagd-web-provider": "^0.7.1",
+    "@openfeature/react-sdk": "^0.4.1",
+    "@tanstack/react-query": "^5.45.1",
+    "cookies-next": "^4.2.1",
+    "currency-symbol-map": "^5.1.0",
+    "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.4"
+    "styled-components": "6.1.11",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^10.0.0",
     "eslint": "^8",
-    "eslint-config-next": "14.2.4"
+    "eslint-config-next": "14.2.4",
+    "ts-proto": "^1.180.0",
+    "typescript": "^5"
   }
 }
