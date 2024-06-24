@@ -1,7 +1,7 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-import Header from '../Header';
+import Header from '../Header/Header';
 
 interface IProps {
   children: React.ReactNode;

@@ -1,8 +1,8 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-import CartIcon from '../CartIcon';
-import CurrencySwitcher from '../CurrencySwitcher';
+import CartIcon from '../CartIcon/CartIcon';
+import CurrencySwitcher from '../CurrencySwitcher/CurrencySwitcher';
 import * as S from './Header.styled';
 
 const Header = () => {
