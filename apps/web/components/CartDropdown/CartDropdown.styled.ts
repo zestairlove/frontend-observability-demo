@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Image from 'next/image';
-import styled, {IStyledComponent} from 'styled-components';
+import styled, { IStyledComponent } from 'styled-components';
 import { Button } from '@repo/ui/Button';
 
 export const CartDropdown = styled.div`
