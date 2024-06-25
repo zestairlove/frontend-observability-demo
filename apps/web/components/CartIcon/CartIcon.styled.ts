@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Image from 'next/image';
-import styled from 'styled-components';
+import styled, { IStyledComponent } from 'styled-components';
 
 export const CartIcon = styled.a`
   position: relative;
@@ -15,7 +15,7 @@ export const CartIcon = styled.a`
   cursor: pointer;
 `;
 
-export const Icon = styled(Image).attrs({
+export const Icon: IStyledComponent<'web', any> = styled(Image).attrs({
   width: '24',
   height: '24',
 })`

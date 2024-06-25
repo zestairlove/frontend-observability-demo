@@ -1,7 +1,7 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-import styled from 'styled-components';
+import styled, { IStyledComponent } from 'styled-components';
 
 export const CurrencySwitcher = styled.div`
   display: flex;
@@ -35,7 +35,7 @@ export const SelectedConcurrency = styled.span`
   display: inline-block;
 `;
 
-export const Arrow = styled.img.attrs({
+export const Arrow: IStyledComponent<'web', any> = styled.img.attrs({
   src: '/icons/Chevron.svg',
   alt: 'arrow',
 })`

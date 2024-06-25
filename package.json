@@ -3,9 +3,11 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
+    "clean": "turbo run clean",
+    "dev": "turbo dev --filter=web --filter=api",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "turbo run test"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
@@ -17,7 +19,7 @@
   },
   "packageManager": "yarn@1.22.19",
   "workspaces": [
-    "apps/web",
+    "apps/*",
     "packages/*"
   ]
 }

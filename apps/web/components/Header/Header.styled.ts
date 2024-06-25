@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Link from 'next/link';
-import styled from 'styled-components';
+import styled, { IStyledComponent } from 'styled-components';
 
 export const Header = styled.header`
   background-color: #853b5c;
@@ -36,13 +36,13 @@ export const Container = styled.div`
   }
 `;
 
-export const NavBarBrand = styled(Link)`
+export const NavBarBrand: IStyledComponent<'web', any> = styled(Link)`
   display: flex;
   align-items: center;
   padding: 0;
 `;
 
-export const BrandImg = styled.img.attrs({
+export const BrandImg: IStyledComponent<'web', any> = styled.img.attrs({
   src: '/images/opentelemetry-demo-logo.png',
 })`
   width: 280px;

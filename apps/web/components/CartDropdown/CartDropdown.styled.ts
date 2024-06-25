@@ -77,11 +77,11 @@ export const ItemDetails = styled.div`
   gap: 5px;
 `;
 
-export const ItemQuantity = styled(ItemName)`
+export const ItemQuantity: IStyledComponent<'web', any> = styled(ItemName)`
   font-size: ${({ theme }) => theme.sizes.mMedium};
 `;
 
-export const CartButton = styled(Button)``;
+export const CartButton: IStyledComponent<'web', any> = styled(Button)``;
 
 export const Header = styled.div`
   display: flex;
