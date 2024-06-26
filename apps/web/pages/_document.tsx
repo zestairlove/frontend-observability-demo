@@ -28,7 +28,6 @@ console.log('OTEL_COLLECTOR_HOST', OTEL_COLLECTOR_HOST);
 class MyDocument extends Document<{ envString: string }> {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
-    console.log('sheet', sheet);
     const originalRenderPage = ctx.renderPage;
 
     try {

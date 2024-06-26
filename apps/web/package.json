@@ -35,6 +35,6 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "ts-proto": "^1.180.0",
-    "typescript": "^5"
+    "typescript": "^5.3.3"
   }
 }
