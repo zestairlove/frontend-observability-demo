@@ -11,7 +11,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN turbo prune product-catalog --docker
+RUN turbo prune product-api --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
@@ -36,7 +36,7 @@ COPY turbo.json turbo.json
 # ARG TURBO_TOKEN
 # ENV TURBO_TOKEN=$TURBO_TOKEN
 
-RUN yarn turbo build --filter=product-catalog...
+RUN yarn turbo build --filter=product-api...
 
 FROM base AS runner
 WORKDIR /app
@@ -47,4 +47,4 @@ RUN adduser --system --uid 1001 expressjs
 USER expressjs
 COPY --from=installer /app .
 
-CMD node apps/product-catalog/dist/index.js
+CMD node apps/product-api/dist/index.js

@@ -11,11 +11,11 @@ services:
   #     - 3000:3000
   #   networks:
   #     - app_network
-  product-catalog:
-    container_name: product-catalog
+  product-api:
+    container_name: product-api
     build:
       context: .
-      dockerfile: ./apps/product-catalog/Dockerfile
+      dockerfile: ./apps/product-api/Dockerfile
     restart: always
     ports:
       - 3001:3001

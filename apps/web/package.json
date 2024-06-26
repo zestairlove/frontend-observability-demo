@@ -7,18 +7,15 @@
     "dev": "dotenvx run -f ../../.env.example -- next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "grpc:generate": "mkdir -p ./protos && protoc -I ./pb  --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=esModuleInterop=true --ts_proto_out=./protos --ts_proto_opt=outputServices=grpc-js demo.proto"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@repo/ui": "*",
     "@dotenvx/dotenvx": "^0.45.0",
-    "@grpc/grpc-js": "^1.10.9",
     "@openfeature/flagd-web-provider": "^0.7.1",
     "@openfeature/react-sdk": "^0.4.1",
+    "@repo/ui": "*",
     "@tanstack/react-query": "^5.45.1",
     "cookies-next": "^4.2.1",
-    "currency-symbol-map": "^5.1.0",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",

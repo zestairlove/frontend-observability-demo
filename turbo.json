@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["ENV_PLATFORM", "PRODUCT_CATALOG_SERVICE_ADDR"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

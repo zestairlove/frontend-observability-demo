@@ -15,7 +15,7 @@
 //   IProductCartItem,
 //   IProductCheckout,
 // } from '../types/Cart';
-import { Product } from '@repo/types';
+import type { Product } from '@repo/types';
 import request from '../utils/request';
 // import { AttributeNames } from '../utils/enums/AttributeNames';
 import SessionGateway from './Session.gateway';
@@ -83,30 +83,27 @@ const Apis = () => ({
   //   });
   // },
 
-  listProducts(currencyCode: string) {
+  listProducts() {
     return request<Product[]>({
       url: `${basePath}/products`,
-      queryParams: { currencyCode },
     });
   },
 
-  // getProduct(productId: string, currencyCode: string) {
-  //   return request<Product>({
-  //     url: `${basePath}/products/${productId}`,
-  //     queryParams: { currencyCode },
-  //   });
-  // },
+  getProduct(productId: string) {
+    return request<Product>({
+      url: `${basePath}/products/${productId}`,
+    });
+  },
 
-  // listRecommendations(productIds: string[], currencyCode: string) {
-  //   return request<Product[]>({
-  //     url: `${basePath}/recommendations`,
-  //     queryParams: {
-  //       productIds,
-  //       sessionId: userId,
-  //       currencyCode,
-  //     },
-  //   });
-  // },
+  listRecommendations() {
+    return request<Product[]>({
+      url: `${basePath}/recommendations`,
+      queryParams: {
+        sessionId: userId,
+      },
+    });
+  },
+
   // listAds(contextKeys: string[]) {
   //   return request<Ad[]>({
   //     url: `${basePath}/data`,

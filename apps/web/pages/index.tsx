@@ -2,31 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
-// import Footer from '../components/Footer';
-import Layout from '../components/Layout/Layout';
-import ProductList from '../components/ProductList/ProductList';
-import * as S from '../styles/Home.styled';
 import ApiGateway from '../gateways/Api.gateway';
-import { useCurrency } from '../providers/Currency.provider';
+import * as S from '../styles/Home.styled';
+import Layout from '../components/Layout/Layout';
 import Banner from '../components/Banner/Banner';
+import Footer from '../components/Footer/Footer';
+import ProductList from '../components/ProductList/ProductList';
 
 const Home: NextPage = () => {
-  const { selectedCurrency } = useCurrency();
-  console.log('selectedCurrency', selectedCurrency);
-
   const { data: productList = [] } = useQuery({
-    queryKey: ['products', selectedCurrency],
-    queryFn: () => ApiGateway.listProducts(selectedCurrency),
+    queryKey: ['products'],
+    queryFn: () => ApiGateway.listProducts(),
   });
-
-  // const productList = useQuery(['products', selectedCurrency], () =>
-  //   ApiGateway.listProducts(selectedCurrency)
-  // );
-
-  console.log('productList', productList);
 
   return (
     <Layout>
@@ -42,6 +30,7 @@ const Home: NextPage = () => {
             </S.Content>
           </S.Row>
         </S.Container>
+        <Footer />
       </S.Home>
     </Layout>
   );

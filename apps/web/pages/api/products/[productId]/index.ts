@@ -3,10 +3,10 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Empty, Product } from '@repo/types';
-import request from '../../../utils/request';
-// import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
+import request from '../../../../utils/request';
+// import InstrumentationMiddleware from '../../../../utils/telemetry/InstrumentationMiddleware';
 
-type TResponse = Product[] | Empty;
+type TResponse = Product | Empty;
 
 const PRODUCT_CATALOG_SERVICE_ADDR =
   process.env.PRODUCT_CATALOG_SERVICE_ADDR || 'http://localhost:3001';
@@ -15,11 +15,12 @@ const handler = async (
   { method, query }: NextApiRequest,
   res: NextApiResponse<TResponse>
 ) => {
-  console.log('request', { method, query });
   switch (method) {
     case 'GET': {
+      const { productId = '' } = query;
+      console.log('productId in nextrouter', productId);
       const result = await request<Product[]>({
-        url: `${PRODUCT_CATALOG_SERVICE_ADDR}/products`,
+        url: `${PRODUCT_CATALOG_SERVICE_ADDR}/products/${productId}`,
       });
 
       return res.status(200).json(result);

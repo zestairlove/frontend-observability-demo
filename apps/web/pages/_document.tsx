@@ -10,20 +10,7 @@ import Document, {
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
-const {
-  ENV_PLATFORM,
-  WEB_OTEL_SERVICE_NAME,
-  PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT,
-  OTEL_COLLECTOR_HOST,
-} = process.env;
-
-console.log('ENV_PLATFORM', ENV_PLATFORM);
-console.log('WEB_OTEL_SERVICE_NAME', WEB_OTEL_SERVICE_NAME);
-console.log(
-  'PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT',
-  PUBLIC_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-);
-console.log('OTEL_COLLECTOR_HOST', OTEL_COLLECTOR_HOST);
+const { ENV_PLATFORM } = process.env;
 
 class MyDocument extends Document<{ envString: string }> {
   static async getInitialProps(ctx: DocumentContext) {
