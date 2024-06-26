@@ -8,8 +8,8 @@ import request from '../../../utils/request';
 
 type TResponse = Product[] | Empty;
 
-const PRODUCT_CATALOG_SERVICE_ADDR =
-  process.env.PRODUCT_CATALOG_SERVICE_ADDR || 'http://localhost:3001';
+const PRODUCT_API_ADDR =
+  process.env.PRODUCT_API_ADDR || 'http://localhost:3001';
 
 const handler = async (
   { method, query }: NextApiRequest,
@@ -19,7 +19,7 @@ const handler = async (
   switch (method) {
     case 'GET': {
       const result = await request<Product[]>({
-        url: `${PRODUCT_CATALOG_SERVICE_ADDR}/products`,
+        url: `${PRODUCT_API_ADDR}/products`,
       });
 
       return res.status(200).json(result);

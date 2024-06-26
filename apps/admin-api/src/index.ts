@@ -1,5 +1,5 @@
-import { createServer } from './server';
 import { log } from '@repo/logger';
+import { createServer } from './server';
 
 console.log(
   'process.env.PRODUCT_CATALOG_SERVICE_PORT',
