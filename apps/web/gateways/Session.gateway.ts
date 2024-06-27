@@ -5,13 +5,11 @@ import { v4 } from 'uuid';
 
 interface ISession {
   userId: string;
-  currencyCode: string;
 }
 
 const sessionKey = 'session';
 const defaultSession = {
   userId: v4(),
-  currencyCode: 'USD',
 };
 
 const SessionGateway = () => ({

@@ -10,7 +10,7 @@ import type { Product } from '@repo/types';
 import Layout from '../../../components/Layout/Layout';
 import Footer from '../../../components/Footer/Footer';
 import ProductPrice from '../../../components/ProductPrice/ProductPrice';
-// import Recommendations from '../../../components/Recommendations';
+import Recommendations from '../../../components/Recommendations/Recommendations';
 import { Select } from '@repo/ui/Select';
 import ApiGateway from '../../../gateways/Api.gateway';
 import * as S from '../../../styles/ProductDetail.styled';
@@ -18,7 +18,7 @@ import * as S from '../../../styles/ProductDetail.styled';
 const quantityOptions = new Array(10).fill(0).map((_, i) => i + 1);
 
 const ProductDetail: NextPage = () => {
-  const { push, query } = useRouter();
+  const { query } = useRouter();
   const [quantity, setQuantity] = useState(1);
   const productId = query.productId as string;
 
@@ -72,7 +72,7 @@ const ProductDetail: NextPage = () => {
             </S.AddToCart>
           </S.Details>
         </S.Container>
-        {/* <Recommendations /> */}
+        <Recommendations />
       </S.ProductDetail>
       <Footer />
     </Layout>

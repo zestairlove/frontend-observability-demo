@@ -7,5 +7,5 @@ const port = process.env.PRODUCT_API_PORT || 3002;
 const server = createServer();
 
 server.listen(port, () => {
-  log(`api running on ${port}`);
+  log(`productApi running on ${port}`);
 });

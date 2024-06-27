@@ -1,6 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["ENV_PLATFORM", "ADMIN_API_ADDR", "PRODUCT_API_ADDR"],
+  "globalEnv": [
+    "ENV_PLATFORM",
+    "ADMIN_API_ADDR",
+    "PRODUCT_API_ADDR",
+    "RECOMMEND_API_ADDR"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

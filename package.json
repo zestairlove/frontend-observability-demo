@@ -4,14 +4,14 @@
   "scripts": {
     "build": "turbo build",
     "clean": "turbo run clean",
-    "dev": "turbo dev --filter=web --filter=product-api",
+    "dev": "turbo dev --filter=web --filter=product-api --filter=recommend-api",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "turbo run test"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
-    "turbo": "^2.0.4",
+    "turbo": "^2.0.5",
     "typescript": "^5.3.3"
   },
   "engines": {

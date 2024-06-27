@@ -9,11 +9,6 @@ export const createServer = (): Koa => {
   const app = new Koa();
   const router = new Router();
 
-  router.get('/message/:name', ctx => {
-    const { name } = ctx.params;
-    ctx.body = { message: `hello ${name}` };
-  });
-
   router.get('/products/:productId', ctx => {
     const { productId } = ctx.params;
     const product = projectsJSON.products.find(p => p.id === productId);

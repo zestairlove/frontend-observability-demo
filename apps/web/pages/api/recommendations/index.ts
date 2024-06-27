@@ -8,17 +8,21 @@ import request from '../../../utils/request';
 
 type TResponse = Product[] | Empty;
 
-const PRODUCT_API_ADDR =
-  process.env.PRODUCT_API_ADDR || 'http://localhost:3001';
+const RECOMMEND_API_ADDR =
+  process.env.RECOMMEND_API_ADDR || 'http://localhost:3003';
 
 const handler = async (
   { method, query }: NextApiRequest,
   res: NextApiResponse<TResponse>
 ) => {
+  console.log('query.userId', query.userId);
   switch (method) {
     case 'GET': {
       const result = await request<Product[]>({
-        url: `${PRODUCT_API_ADDR}/products`,
+        url: `${RECOMMEND_API_ADDR}/recommendations`,
+        queryParams: {
+          userId: query.userId,
+        },
       });
 
       return res.status(200).json(result);
