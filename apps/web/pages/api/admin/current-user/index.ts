@@ -2,29 +2,23 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { Empty, Product } from '@repo/types';
-import request from '../../../utils/request';
+import type { Empty, UserPayload } from '@repo/types';
+import request from '../../../../utils/request';
 // import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
 
-type TResponse = Product[] | Empty;
+type TResponse = UserPayload | Empty;
 
-const RECOMMEND_API_ADDR =
-  process.env.RECOMMEND_API_ADDR || 'http://localhost:3003';
+const ADMIN_API_ADDR = process.env.ADMIN_API_ADDR || 'http://localhost:3001';
 
 const handler = async (
   { method, query }: NextApiRequest,
   res: NextApiResponse<TResponse>
 ) => {
-  console.log('query.userId', query.userId);
   switch (method) {
     case 'GET': {
-      const result = await request<Product[]>({
-        url: `${RECOMMEND_API_ADDR}/recommendations`,
-        queryParams: {
-          userId: query.userId,
-        },
+      const result = await request<UserPayload>({
+        url: `${ADMIN_API_ADDR}/current-user`,
       });
-
       return res.status(200).json(result);
     }
 

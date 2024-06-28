@@ -28,6 +28,7 @@ const request = async <T>({
   );
 
   const responseText = await response.text();
+  console.log('responseText', responseText);
 
   if (!!responseText) return JSON.parse(responseText);
 

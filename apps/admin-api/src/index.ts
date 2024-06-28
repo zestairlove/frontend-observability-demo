@@ -1,14 +1,9 @@
 import { log } from '@repo/logger';
 import { createServer } from './server';
 
-console.log(
-  'process.env.PRODUCT_CATALOG_SERVICE_PORT',
-  process.env.PRODUCT_CATALOG_SERVICE_PORT
-);
-
-const port = process.env.PRODUCT_CATALOG_SERVICE_PORT || 3001;
+const port = process.env.ADMIN_API_PORT || 3001;
 const server = createServer();
 
 server.listen(port, () => {
-  log(`api running on ${port}`);
+  log(`adminApi running on ${port}`);
 });

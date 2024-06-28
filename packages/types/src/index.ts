@@ -14,3 +14,8 @@ export interface Money {
   units: number;
   nanos: number;
 }
+
+export interface UserPayload {
+  userId: string;
+  userEmail: string;
+}

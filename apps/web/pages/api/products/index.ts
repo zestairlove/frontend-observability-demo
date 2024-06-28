@@ -25,7 +25,7 @@ const handler = async (
     }
 
     default: {
-      return res.status(405).send('');
+      return res.status(405).send('Method not allowed');
     }
   }
 };

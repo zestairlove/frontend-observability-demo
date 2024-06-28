@@ -6,7 +6,8 @@ import request from '../utils/request';
 // import { AttributeNames } from '../utils/enums/AttributeNames';
 // import { context, propagation } from "@opentelemetry/api";
 
-const basePath = '/api';
+const FRONTEND_ADDR = process.env.FRONTEND_ADDR || 'http://localhost:3000';
+const basePath = `${typeof window === 'undefined' ? FRONTEND_ADDR : ''}/api`;
 
 const Apis = () => ({
   listProducts() {

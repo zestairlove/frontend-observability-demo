@@ -2,6 +2,8 @@
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": [
     "ENV_PLATFORM",
+    "ENV_JWT_KEY",
+    "FRONTEND_ADDR",
     "ADMIN_API_ADDR",
     "PRODUCT_API_ADDR",
     "RECOMMEND_API_ADDR"

@@ -48,3 +48,8 @@ export const BrandImg: IStyledComponent<'web', any> = styled.img.attrs({
   width: 280px;
   height: auto;
 `;
+
+export const Controls = styled.div`
+  display: flex;
+  height: 60px;
+`;

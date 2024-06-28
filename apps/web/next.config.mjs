@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const { ENV_PLATFORM = '' } = process.env;
-
-// console.log('process.env in nextconfig', process.env);
-// console.log('ENV_PLATFORM in nextconfig', ENV_PLATFORM);
+const { ENV_PLATFORM, FRONTEND_ADDR } = process.env;
 
 const nextConfig = {
   compiler: {
@@ -11,6 +8,7 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_PLATFORM: ENV_PLATFORM,
+    NEXT_PUBLIC_FRONTEND_ADDR: FRONTEND_ADDR,
   },
 };
 

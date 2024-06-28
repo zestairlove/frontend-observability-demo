@@ -6,18 +6,22 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { Product } from '@repo/types';
+import type { UserPayload, Product } from '@repo/types';
+import { Select } from '@repo/ui/Select';
 import Layout from '../../../components/Layout/Layout';
 import Footer from '../../../components/Footer/Footer';
 import ProductPrice from '../../../components/ProductPrice/ProductPrice';
 import Recommendations from '../../../components/Recommendations/Recommendations';
-import { Select } from '@repo/ui/Select';
 import ApiGateway from '../../../gateways/Api.gateway';
 import * as S from '../../../styles/ProductDetail.styled';
+import SessionGateway from '../../../gateways/Session.gateway';
 
 const quantityOptions = new Array(10).fill(0).map((_, i) => i + 1);
 
-const ProductDetail: NextPage = () => {
+const ProductDetail: NextPage<{ currentUser: UserPayload | null }> = ({
+  currentUser,
+}) => {
+  console.log('currentUser in ProductDetail', currentUser);
   const { query } = useRouter();
   const [quantity, setQuantity] = useState(1);
   const productId = query.productId as string;
@@ -72,7 +76,7 @@ const ProductDetail: NextPage = () => {
             </S.AddToCart>
           </S.Details>
         </S.Container>
-        <Recommendations />
+        {currentUser && <Recommendations />}
       </S.ProductDetail>
       <Footer />
     </Layout>
@@ -80,3 +84,12 @@ const ProductDetail: NextPage = () => {
 };
 
 export default ProductDetail;
+
+export const getServerSideProps = async () => {
+  const { currentUser } = await SessionGateway.getCurrentUser();
+  return {
+    props: {
+      currentUser,
+    },
+  };
+};
