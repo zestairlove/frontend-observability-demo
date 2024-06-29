@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { AuthPayload, Product } from '@repo/types';
+import type { Product } from '@repo/types';
 import { log } from '@repo/logger';
 import { Select } from '@repo/ui/Select';
 import Layout from '../../../components/Layout/Layout';
@@ -17,13 +17,12 @@ import ApiGateway from '../../../gateways/Api.gateway';
 import * as S from '../../../styles/ProductDetail.styled';
 import SessionGateway from '../../../gateways/Session.gateway';
 import { getErrorMessage } from '../../../utils/errors/getErrorMessage';
+import { useUserState } from '../../../Providers/UserProvider';
 
 const quantityOptions = new Array(10).fill(0).map((_, i) => i + 1);
 
-const ProductDetail: NextPage<{ currentUser: AuthPayload | null }> = ({
-  currentUser,
-}) => {
-  console.log('currentUser in ProductDetail', currentUser);
+const ProductDetail: NextPage = () => {
+  const { currentUser } = useUserState();
   const { query } = useRouter();
   const [quantity, setQuantity] = useState(1);
   const productId = query.productId as string;

@@ -7,6 +7,9 @@ import * as S from './Recommendations.styled';
 import { useUserState } from '../../Providers/UserProvider';
 import ApiGateway from '../../gateways/Api.gateway';
 
+const cookie = typeof window !== 'undefined' ? document.cookie : '';
+console.log('cookie in Recommendations', cookie);
+
 const Recommendations = () => {
   const { currentUser } = useUserState();
   const { data: recommendedProductList = [] } = useQuery({

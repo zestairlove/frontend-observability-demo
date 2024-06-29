@@ -27,7 +27,7 @@ export const createServer = (): Express => {
         },
         process.env.ENV_JWT_KEY || 'keyboard-cat',
         {
-          expiresIn: '5m'
+          expiresIn: '1m'
         }
       );
       res.json({
