@@ -1,51 +1,27 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-import { UserPayload } from '@repo/types';
-import { v4 } from 'uuid';
+import { AuthPayload } from '@repo/types';
 import request from '../utils/request';
-
-interface ISession {
-  userId: string;
-}
-
-const sessionKey = 'session';
-const defaultSession = {
-  userId: v4(),
-};
 
 const FRONTEND_ADDR = process.env.FRONTEND_ADDR || 'http://localhost:3000';
 const basePath = `${typeof window === 'undefined' ? FRONTEND_ADDR : ''}/api`;
 
 const SessionGateway = () => ({
-  getCurrentUser() {
-    return request<{ currentUser: UserPayload }>({
+  getCurrentUser(token?: string) {
+    const headerAuth = { authorization: `Bearer ${token}` };
+    return request<{ currentUser: AuthPayload }>({
       url: `${basePath}/admin/current-user`,
+      headers: {
+        'content-type': 'application/json',
+        ...(token ? headerAuth : {}),
+      },
     });
   },
-  signIn() {
-    return request<UserPayload>({
+  async signIn() {
+    return await request<AuthPayload>({
       url: `${basePath}/admin/signin`,
     });
-  },
-  getSession(): ISession {
-    if (typeof window === 'undefined') return defaultSession;
-    const sessionString = localStorage.getItem(sessionKey);
-
-    if (!sessionString)
-      localStorage.setItem(sessionKey, JSON.stringify(defaultSession));
-
-    return JSON.parse(
-      sessionString || JSON.stringify(defaultSession)
-    ) as ISession;
-  },
-  setSessionValue<K extends keyof ISession>(key: K, value: ISession[K]) {
-    const session = this.getSession();
-
-    localStorage.setItem(
-      sessionKey,
-      JSON.stringify({ ...session, [key]: value })
-    );
   },
 });
 

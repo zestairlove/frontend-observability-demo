@@ -13,7 +13,7 @@ export const NavBar = styled.nav`
   height: 80px;
   background-color: white;
   font-size: 15px;
-  color: #b4b2bb;
+  color: #333;
   border-bottom: 1px solid ${({ theme }) => theme.colors.textGray};
   z-index: 1;
   padding: 0;
@@ -51,5 +51,6 @@ export const BrandImg: IStyledComponent<'web', any> = styled.img.attrs({
 
 export const Controls = styled.div`
   display: flex;
+  align-items: center;
   height: 60px;
 `;

@@ -15,7 +15,13 @@ export interface Money {
   nanos: number;
 }
 
-export interface UserPayload {
-  userId: string;
-  userEmail: string;
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+}
+
+export interface AuthPayload {
+  user: User;
+  token: string;
 }

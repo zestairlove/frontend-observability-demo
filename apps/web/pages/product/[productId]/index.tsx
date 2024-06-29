@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { UserPayload, Product } from '@repo/types';
+import type { AuthPayload, Product } from '@repo/types';
 import { Select } from '@repo/ui/Select';
 import Layout from '../../../components/Layout/Layout';
 import Footer from '../../../components/Footer/Footer';
@@ -18,7 +18,7 @@ import SessionGateway from '../../../gateways/Session.gateway';
 
 const quantityOptions = new Array(10).fill(0).map((_, i) => i + 1);
 
-const ProductDetail: NextPage<{ currentUser: UserPayload | null }> = ({
+const ProductDetail: NextPage<{ currentUser: AuthPayload | null }> = ({
   currentUser,
 }) => {
   console.log('currentUser in ProductDetail', currentUser);
@@ -85,8 +85,14 @@ const ProductDetail: NextPage<{ currentUser: UserPayload | null }> = ({
 
 export default ProductDetail;
 
-export const getServerSideProps = async () => {
-  const { currentUser } = await SessionGateway.getCurrentUser();
+export const getServerSideProps = async ({
+  req,
+}: GetServerSidePropsContext) => {
+  let currentUser = null;
+  const token = req.cookies.token;
+  if (token) {
+    currentUser = await SessionGateway.getCurrentUser(token);
+  }
   return {
     props: {
       currentUser,

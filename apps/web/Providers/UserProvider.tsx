@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, Dispatch } from 'react';
-import { UserPayload } from '@repo/types';
+import { User } from '@repo/types';
 
-type State = { currentUser: UserPayload | null };
+type State = { currentUser: User | null };
 const StateContext = createContext<State | null>(null);
 const DispatchContext = createContext<Dispatch<State> | null>(null);
 

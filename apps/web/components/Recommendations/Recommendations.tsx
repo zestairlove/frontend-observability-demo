@@ -4,16 +4,16 @@
 import { useQuery } from '@tanstack/react-query';
 import ProductCard from '../ProductCard/ProductCard';
 import * as S from './Recommendations.styled';
-import SessionGateway from '../../gateways/Session.gateway';
+import { useUserState } from '../../Providers/UserProvider';
 import ApiGateway from '../../gateways/Api.gateway';
 
-const { userId } = SessionGateway.getSession();
-
 const Recommendations = () => {
+  const { currentUser } = useUserState();
   const { data: recommendedProductList = [] } = useQuery({
-    queryKey: ['recommendations', userId],
-    queryFn: () => ApiGateway.listRecommendations(userId),
+    queryKey: ['recommendations', currentUser?.id],
+    queryFn: () => ApiGateway.listRecommendations(currentUser!.id),
     refetchOnWindowFocus: false,
+    enabled: !!currentUser?.id,
   });
 
   return (

@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { Empty, UserPayload } from '@repo/types';
+import type { Empty, AuthPayload } from '@repo/types';
 import request from '../../../../utils/request';
 // import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
 
-type TResponse = UserPayload | Empty;
+type TResponse = AuthPayload | Empty;
 
 const ADMIN_API_ADDR = process.env.ADMIN_API_ADDR || 'http://localhost:3001';
 
@@ -16,15 +16,13 @@ const handler = async (
 ) => {
   switch (method) {
     case 'GET': {
-      // const result = await request<UserPayload>({
-      //   url: `${ADMIN_API_ADDR}/signin`,
-      // });
-      // console.log('result', result);
-      // return res.status(200).json(result);
-
-      const reponse = await fetch(`${ADMIN_API_ADDR}/signin`);
-      const result = await reponse.json();
-      res.setHeader('Set-Cookie', reponse.headers.getSetCookie());
+      const result = await request<AuthPayload>({
+        url: `${ADMIN_API_ADDR}/signin`,
+      });
+      res.setHeader(
+        'Set-Cookie',
+        `token=${result.token}; Max-Age=${1000 * 60 * 60 * 2}; Path=/; HttpOnly`
+      );
       return res.status(200).json(result);
     }
 

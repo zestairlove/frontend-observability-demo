@@ -10,6 +10,7 @@ import SessionGateway from '../../gateways/Session.gateway';
 
 const Header = () => {
   const { currentUser } = useUserState();
+  console.log('currentUser in header', currentUser);
   const userDispatch = useUserDispatch();
   const { data, refetch } = useQuery({
     queryKey: ['signin'],
@@ -17,12 +18,12 @@ const Header = () => {
     enabled: false,
   });
 
+  console.log('sigin data in Header', data);
+
   useEffect(() => {
-    console.log('effect1');
     if (data) {
-      console.log('effect2');
       userDispatch({
-        currentUser: data,
+        currentUser: data.user,
       });
     }
   }, [data]);
@@ -35,7 +36,7 @@ const Header = () => {
             <S.BrandImg />
           </S.NavBarBrand>
           <S.Controls>
-            {currentUser && currentUser.userEmail}
+            {currentUser && currentUser.email}
             <Button onClick={() => refetch()}>Signin</Button>
           </S.Controls>
         </S.Container>

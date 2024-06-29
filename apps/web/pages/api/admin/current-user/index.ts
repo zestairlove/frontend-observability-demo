@@ -2,22 +2,27 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { Empty, UserPayload } from '@repo/types';
+import type { Empty, AuthPayload } from '@repo/types';
 import request from '../../../../utils/request';
 // import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
 
-type TResponse = UserPayload | Empty;
+type TResponse = AuthPayload | Empty;
 
 const ADMIN_API_ADDR = process.env.ADMIN_API_ADDR || 'http://localhost:3001';
 
 const handler = async (
-  { method, query }: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse<TResponse>
 ) => {
-  switch (method) {
+  switch (req.method) {
     case 'GET': {
-      const result = await request<UserPayload>({
+      const headerAuthValue = req.headers.authorization;
+      const result = await request<AuthPayload>({
         url: `${ADMIN_API_ADDR}/current-user`,
+        headers: {
+          'content-type': 'application/json',
+          ...(headerAuthValue ? { Authorization: headerAuthValue } : {}),
+        },
       });
       return res.status(200).json(result);
     }

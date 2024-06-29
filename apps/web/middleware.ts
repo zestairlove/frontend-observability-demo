@@ -2,22 +2,27 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/api/admin')) {
+    const allCookies = request.cookies.getAll();
+    const tokenCookie = request.cookies.get('token');
+    // console.log('request.headers', request.headers);
+    // console.log('allCookies', allCookies);
+    // console.log('tokenCookie', tokenCookie);
+
+    // const requestHeaders = new Headers(request.headers)
+
+    const response = NextResponse.next();
+    const ResponseCookies = response.cookies;
+    // console.log('response', response);
+    // console.log('ResponseCookies.get("token")', ResponseCookies.get('token'));
+    return response;
+  }
   // Assume a "Cookie:nextjs=fast" header to be present on the incoming request
   // Getting cookies from the request using the `RequestCookies` API
-  let cookie = request.cookies.get('session');
-  //console.log('session cookie', cookie); // => { name: 'nextjs', value: 'fast', Path: '/' }
-  const allCookies = request.cookies.getAll();
-  //console.log('allCookies', allCookies); // => [{ name: 'nextjs', value: 'fast' }]
+  // let cookie = request.cookies.get('session');
+  // console.log('session cookie', cookie);
 
-  //console.log('request', request);
-
-  const body = Buffer.from(cookie?.value || '', 'base64').toString('utf8');
-  const bodyJson = JSON.parse(body);
-
-  // @ts-ignore
-  request.session = { jwt: bodyJson.jwt };
-  // @ts-ignore
-  //console.log('request.session', request.session);
+  // console.log('allCookies', allCookies);
 
   // Setting cookies on the response using the `ResponseCookies` API
   const response = NextResponse.next();
