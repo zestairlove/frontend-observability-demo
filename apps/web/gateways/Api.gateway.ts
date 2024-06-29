@@ -22,11 +22,14 @@ const Apis = () => ({
     });
   },
 
-  listRecommendations(userId: string) {
+  listRecommendations(token?: string) {
+    const headerAuth = { authorization: `Bearer ${token}` };
+    console.log('headerAuth in listRecommendations', headerAuth);
     return request<Product[]>({
       url: `${basePath}/recommendations`,
-      queryParams: {
-        userId,
+      headers: {
+        'content-type': 'application/json',
+        ...(token ? headerAuth : {}),
       },
     });
   },

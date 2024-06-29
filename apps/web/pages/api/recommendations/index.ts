@@ -19,10 +19,12 @@ const handler = async (
   switch (req.method) {
     case 'GET': {
       try {
+        const headerAuthValue = req.headers.authorization;
         const result = await request<Product[]>({
           url: `${RECOMMEND_API_ADDR}/recommendations`,
-          queryParams: {
-            userId: req.query.userId,
+          headers: {
+            'content-type': 'application/json',
+            ...(headerAuthValue ? { authorization: headerAuthValue } : {}),
           },
         });
 

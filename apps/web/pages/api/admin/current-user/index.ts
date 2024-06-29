@@ -24,7 +24,7 @@ const handler = async (
           url: `${ADMIN_API_ADDR}/current-user`,
           headers: {
             'content-type': 'application/json',
-            ...(headerAuthValue ? { Authorization: headerAuthValue } : {}),
+            ...(headerAuthValue ? { authorization: headerAuthValue } : {}),
           },
         });
         return res.status(200).json(result);

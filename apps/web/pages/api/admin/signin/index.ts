@@ -23,7 +23,7 @@ const handler = async (
         });
         res.setHeader(
           'Set-Cookie',
-          `token=${result.token}; Max-Age=${1000 * 60 * 1}; Path=/; HttpOnly`
+          `token=${result.token}; Max-Age=${1000 * 60 * 1}; Path=/`
         );
         return res.status(200).json(result);
       } catch (err) {

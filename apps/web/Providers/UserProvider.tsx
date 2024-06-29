@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, Dispatch } from 'react';
 import { User } from '@repo/types';
 
-type State = { currentUser: User | null };
+type State = { currentUser: User | null; token: string | null };
 const StateContext = createContext<State | null>(null);
 const DispatchContext = createContext<Dispatch<State> | null>(null);
 

@@ -3,6 +3,7 @@ import formbody from '@fastify/formbody';
 import cors from '@fastify/cors';
 import seedrandom from 'seedrandom';
 
+const ADMIN_API_ADDR = process.env.ADMIN_API_ADDR || 'http://localhost:3001';
 const PRODUCTS_API_ADDR =
   process.env.PRODUCTS_API_ADDR || 'http://localhost:3002';
 
@@ -13,11 +14,16 @@ export const createServer = (): FastifyInstance => {
   app.register(cors, { origin: '*' });
 
   app.get('/recommendations', async (request, reply) => {
-    console.log('request.', request.headers);
-    const { userId } = request.query as { userId: string };
-    const response = await fetch(`${PRODUCTS_API_ADDR}/products`);
-    const products = await response.json();
-    const recommendedProducts = getRecommendProducts(userId, products);
+    const productResponse = await fetch(`${PRODUCTS_API_ADDR}/products`);
+    const products = await productResponse.json();
+    const headerAuthValue = request.headers.authorization;
+    const userResponse = await fetch(`${ADMIN_API_ADDR}/current-user`, {
+      headers: {
+        ...(headerAuthValue ? { authorization: headerAuthValue } : {})
+      }
+    });
+    const user = await userResponse.json();
+    const recommendedProducts = getRecommendProducts(user.id, products);
     return recommendedProducts;
   });
 
