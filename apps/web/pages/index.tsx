@@ -49,9 +49,9 @@ export const getServerSideProps = async ({
   req,
 }: GetServerSidePropsContext) => {
   let currentUser = null;
+  const token = req.cookies.token;
 
   try {
-    const token = req.cookies.token;
     if (token) {
       currentUser = await SessionGateway.getCurrentUser(token);
     }
@@ -59,9 +59,12 @@ export const getServerSideProps = async ({
     log(`getCurrentUser failed: ${getErrorMessage(err)}`);
   }
 
+  console.log('currentUser in getServersideProps', currentUser);
+
   return {
     props: {
       currentUser,
+      token,
     },
   };
 };

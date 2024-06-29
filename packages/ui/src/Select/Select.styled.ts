@@ -1,7 +1,7 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-import styled from 'styled-components';
+import styled, { IStyledComponent } from 'styled-components';
 
 export const Select = styled.select`
   width: 100%;
@@ -19,7 +19,7 @@ export const SelectContainer = styled.div`
   width: min-content;
 `;
 
-export const Arrow = styled.img.attrs({
+export const Arrow: IStyledComponent<'web', any> = styled.img.attrs({
   src: '/icons/Chevron.svg',
   alt: 'select'
 })`

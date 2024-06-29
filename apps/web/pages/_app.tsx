@@ -22,9 +22,9 @@ declare global {
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { currentUser } = pageProps;
+  const { currentUser, token } = pageProps;
   return (
-    <UserProvider userState={{ currentUser }}>
+    <UserProvider userState={{ currentUser, token }}>
       <ThemeProvider theme={Theme}>
         <QueryClientProvider client={queryClient}>
           <Component {...pageProps} />

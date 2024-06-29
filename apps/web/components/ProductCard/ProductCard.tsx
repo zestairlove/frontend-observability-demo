@@ -1,7 +1,7 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Product } from '../../protos/demo';
+import { Product } from '@repo/types';
 import ProductPrice from '../ProductPrice/ProductPrice';
 import * as S from './ProductCard.styled';
 

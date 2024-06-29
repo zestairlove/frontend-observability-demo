@@ -26,6 +26,7 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/jest-presets": "*",
+    "@repo/types": "*",
     "@repo/typescript-config": "*",
     "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.17",

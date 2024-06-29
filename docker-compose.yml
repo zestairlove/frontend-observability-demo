@@ -1,29 +1,82 @@
-version: '3'
+x-logging: &default-logging
+  driver: loki
+  options:
+    loki-url: 'http://localhost:3100/api/prom/push'
+    loki-pipeline-stages: |
+      - multiline:
+          firstline: '^\d{4}-\d{2}-\d{2} \d{1,2}:\d{2}:\d{2}'
+          max_wait_time: 3s
+      - regex:
+          expression: '^(?P<time>\d{4}-\d{2}-\d{2} \d{1,2}:\d{2}:\d{2},d{3}) (?P<message>(?s:.*))$$'
 
 services:
-  # web:
-  #   container_name: web
-  #   build:
-  #     context: .
-  #     dockerfile: ./apps/web/Dockerfile
-  #   restart: always
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - app_network
-  product-api:
-    container_name: product-api
+  admin-api:
+    container_name: admin-api
     build:
       context: .
-      dockerfile: ./apps/product-api/Dockerfile
+      dockerfile: ./apps/admin-api/Dockerfile
     restart: always
     ports:
-      - 3001:3001
-    networks:
-      - app_network
+      - '${ADMIN_API_PORT}:${ADMIN_API_PORT}'
 
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
+  # product-api:
+  #   container_name: product-api
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/product-api/Dockerfile
+  #   restart: always
+  #   ports:
+  #     - '${PRODUCT_API_PORT}:${PRODUCT_API_PORT}'
+
+  loki:
+    image: grafana/loki:3.0.0
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - '3100:3100'
+
+  prometheus:
+    image: prom/prometheus:v2.51.2
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./etc/prometheus:/workspace
+    command:
+      - --config.file=/workspace/prometheus.yml
+      - --enable-feature=exemplar-storage
+    depends_on:
+      - loki
+
+  tempo:
+    image: grafana/tempo:2.4.1
+    command:
+      [
+        '--target=all',
+        '--storage.trace.backend=local',
+        '--storage.trace.local.path=/var/tempo',
+        '--auth.enabled=false'
+      ]
+    ports:
+      - '4317:4317'
+      - '4318:4318'
+    depends_on:
+      - loki
+
+  grafana:
+    image: grafana/grafana:10.4.2
+    ports:
+      - '3200:3000'
+    volumes:
+      - ./etc/grafana:/etc/grafana/provisioning
+    environment:
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    depends_on:
+      - loki
+      - prometheus
+
 networks:
-  app_network:
+  default:
+    name: app_network
+    driver: bridge
     external: true

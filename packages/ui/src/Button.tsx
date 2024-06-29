@@ -1,8 +1,10 @@
-"use client";
+'use client';
 
 import styled, { css } from 'styled-components';
 
-export const Button = styled.button<{ $type?: 'primary' | 'secondary' | 'link' }>`
+export const Button = styled.button<{
+  $type?: 'primary' | 'secondary' | 'link';
+}>`
   background-color: #5262a8;
   color: white;
   display: inline-block;
@@ -17,15 +19,15 @@ export const Button = styled.button<{ $type?: 'primary' | 'secondary' | 'link' }
   cursor: pointer;
 
   ${({ $type = 'primary' }) =>
-  $type === 'secondary' &&
-  css`
+    $type === 'secondary' &&
+    css`
       background: none;
       color: #5262a8;
     `};
 
   ${({ $type = 'primary' }) =>
-  $type === 'link' &&
-  css`
+    $type === 'link' &&
+    css`
       background: none;
       color: #5262a8;
       border: none;
