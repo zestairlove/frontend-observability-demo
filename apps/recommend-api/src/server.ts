@@ -13,6 +13,7 @@ export const createServer = (): FastifyInstance => {
   app.register(cors, { origin: '*' });
 
   app.get('/recommendations', async (request, reply) => {
+    console.log('request.', request.headers);
     const { userId } = request.query as { userId: string };
     const response = await fetch(`${PRODUCTS_API_ADDR}/products`);
     const products = await response.json();

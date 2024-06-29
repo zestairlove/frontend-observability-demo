@@ -4,6 +4,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Empty, AuthPayload } from '@repo/types';
 import request from '../../../../utils/request';
+import { ApiError } from '../../../../utils/errors/ApiError';
+import { getErrorMessage } from '../../../../utils/errors/getErrorMessage';
 // import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
 
 type TResponse = AuthPayload | Empty;
@@ -16,15 +18,24 @@ const handler = async (
 ) => {
   switch (req.method) {
     case 'GET': {
-      const headerAuthValue = req.headers.authorization;
-      const result = await request<AuthPayload>({
-        url: `${ADMIN_API_ADDR}/current-user`,
-        headers: {
-          'content-type': 'application/json',
-          ...(headerAuthValue ? { Authorization: headerAuthValue } : {}),
-        },
-      });
-      return res.status(200).json(result);
+      try {
+        const headerAuthValue = req.headers.authorization;
+        const result = await request<AuthPayload>({
+          url: `${ADMIN_API_ADDR}/current-user`,
+          headers: {
+            'content-type': 'application/json',
+            ...(headerAuthValue ? { Authorization: headerAuthValue } : {}),
+          },
+        });
+        return res.status(200).json(result);
+      } catch (err) {
+        if (err instanceof ApiError) {
+          return res.status(err.statusCode).json({ message: err.message });
+        }
+        return res
+          .status(500)
+          .json({ message: `${req.url} ${getErrorMessage(err)}` });
+      }
     }
 
     default: {

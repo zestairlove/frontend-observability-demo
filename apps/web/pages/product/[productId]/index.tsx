@@ -1,12 +1,13 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-import { NextPage } from 'next';
+import { NextPage, GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { AuthPayload, Product } from '@repo/types';
+import { log } from '@repo/logger';
 import { Select } from '@repo/ui/Select';
 import Layout from '../../../components/Layout/Layout';
 import Footer from '../../../components/Footer/Footer';
@@ -15,6 +16,7 @@ import Recommendations from '../../../components/Recommendations/Recommendations
 import ApiGateway from '../../../gateways/Api.gateway';
 import * as S from '../../../styles/ProductDetail.styled';
 import SessionGateway from '../../../gateways/Session.gateway';
+import { getErrorMessage } from '../../../utils/errors/getErrorMessage';
 
 const quantityOptions = new Array(10).fill(0).map((_, i) => i + 1);
 
@@ -36,7 +38,6 @@ const ProductDetail: NextPage<{ currentUser: AuthPayload | null }> = ({
       picture,
       description,
       priceUsd = { units: 0, currencyCode: 'USD', nanos: 0 },
-      categories,
     } = {} as Product,
   } = useQuery({
     queryKey: ['product', productId],
@@ -89,10 +90,16 @@ export const getServerSideProps = async ({
   req,
 }: GetServerSidePropsContext) => {
   let currentUser = null;
-  const token = req.cookies.token;
-  if (token) {
-    currentUser = await SessionGateway.getCurrentUser(token);
+
+  try {
+    const token = req.cookies.token;
+    if (token) {
+      currentUser = await SessionGateway.getCurrentUser(token);
+    }
+  } catch (err) {
+    log(`getCurrentUser failed: ${getErrorMessage(err)}`);
   }
+
   return {
     props: {
       currentUser,

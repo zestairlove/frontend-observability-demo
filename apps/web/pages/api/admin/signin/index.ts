@@ -4,6 +4,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Empty, AuthPayload } from '@repo/types';
 import request from '../../../../utils/request';
+import { handleApiError } from '../../../../utils/errors/handleApiError';
 // import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
 
 type TResponse = AuthPayload | Empty;
@@ -11,19 +12,23 @@ type TResponse = AuthPayload | Empty;
 const ADMIN_API_ADDR = process.env.ADMIN_API_ADDR || 'http://localhost:3001';
 
 const handler = async (
-  { method, query }: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse<TResponse>
 ) => {
-  switch (method) {
+  switch (req.method) {
     case 'GET': {
-      const result = await request<AuthPayload>({
-        url: `${ADMIN_API_ADDR}/signin`,
-      });
-      res.setHeader(
-        'Set-Cookie',
-        `token=${result.token}; Max-Age=${1000 * 60 * 60 * 2}; Path=/; HttpOnly`
-      );
-      return res.status(200).json(result);
+      try {
+        const result = await request<AuthPayload>({
+          url: `${ADMIN_API_ADDR}/signin`,
+        });
+        res.setHeader(
+          'Set-Cookie',
+          `token=${result.token}; Max-Age=${1000 * 60 * 5}; Path=/; HttpOnly`
+        );
+        return res.status(200).json(result);
+      } catch (err) {
+        return handleApiError(err, res);
+      }
     }
 
     default: {

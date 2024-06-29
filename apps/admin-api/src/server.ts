@@ -27,7 +27,7 @@ export const createServer = (): Express => {
         },
         process.env.ENV_JWT_KEY || 'keyboard-cat',
         {
-          expiresIn: '2h'
+          expiresIn: '5m'
         }
       );
       res.json({
@@ -57,10 +57,10 @@ const authUserMiddleware = (
       email: payload.email,
       name: payload.name
     };
+    next();
   } catch (err) {
-    throw err;
+    res.status(401).send({ message: 'Invalid token' });
   }
-  next();
 };
 
 declare module 'express-serve-static-core' {

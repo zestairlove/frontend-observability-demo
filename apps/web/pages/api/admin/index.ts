@@ -8,7 +8,7 @@ import type { Empty } from '@repo/types';
 type TResponse = string | Empty;
 
 const handler = async (
-  { method, query }: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse<TResponse>
 ) => {
   return res.status(405).send('Method not allowed');
