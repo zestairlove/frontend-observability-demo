@@ -33,3 +33,9 @@ k6 run --vus 1 --duration 60s ./etc/k6-script.js
 yarn workspace web add jest --dev
 yarn workspace @repo/ui add jest --dev
 ```
+
+## 기타 명령어
+
+```bash
+yarn workspace admin-api add @opentelemetry/api @opentelemetry/auto-instrumentations-node @opentelemetry/exporter-trace-otlp-http @opentelemetry/resources @opentelemetry/sdk-node @opentelemetry/semantic-conventions
+```

@@ -1168,7 +1168,7 @@
   dependencies:
     "@opentelemetry/semantic-conventions" "1.25.1"
 
-"@opentelemetry/exporter-trace-otlp-grpc@0.52.1":
+"@opentelemetry/exporter-trace-otlp-grpc@0.52.1", "@opentelemetry/exporter-trace-otlp-grpc@^0.52.1":
   version "0.52.1"
   resolved "https://registry.yarnpkg.com/@opentelemetry/exporter-trace-otlp-grpc/-/exporter-trace-otlp-grpc-0.52.1.tgz#8b59c93a5833484ba19a7f424632c6ced5ea1d3b"
   integrity sha512-pVkSH20crBwMTqB3nIN4jpQKUEoB0Z94drIHpYyEqs7UBr+I0cpYyOR3bqjA/UasQUMROb3GX8ZX4/9cVRqGBQ==

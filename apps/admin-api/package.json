@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
-    "dev": "dotenvx run -f ../../.env.example -- nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
+    "dev": "dotenvx run -f ../../.env.example -- nodemon --exec \"node -r esbuild-register -r ./trace.js ./src/index.ts\" -e .ts",
     "lint": "tsc --noEmit && eslint \"src/**/*.ts*\" --max-warnings 0",
     "start": "node -r esbuild-register ./src/index.ts",
     "test": "jest --detectOpenHandles"
@@ -16,6 +16,13 @@
   "dependencies": {
     "@dotenvx/dotenvx": "^0.45.0",
     "@faker-js/faker": "^8.4.1",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.47.1",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.52.1",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.52.1",
+    "@opentelemetry/resources": "^1.25.1",
+    "@opentelemetry/sdk-node": "^0.52.1",
+    "@opentelemetry/semantic-conventions": "^1.25.1",
     "@repo/logger": "*",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

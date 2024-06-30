@@ -2,23 +2,23 @@ const opentelemetry = require('@opentelemetry/sdk-node');
 const { diag, DiagConsoleLogger, DiagLogLevel } = require('@opentelemetry/api');
 const { Resource } = require('@opentelemetry/resources');
 const {
-  SEMRESATTRS_SERVICE_NAME,
+  SEMRESATTRS_SERVICE_NAME
 } = require('@opentelemetry/semantic-conventions');
 // const {
-//   OTLPTraceExporter,
+//   OTLPTraceExporter
 // } = require('@opentelemetry/exporter-trace-otlp-http');
 const {
-  OTLPTraceExporter,
+  OTLPTraceExporter
 } = require('@opentelemetry/exporter-trace-otlp-grpc');
 const {
-  getNodeAutoInstrumentations,
+  getNodeAutoInstrumentations
 } = require('@opentelemetry/auto-instrumentations-node');
 
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
 // 메타데이터 설정
 const {
-  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT,
+  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
   // OTEL_EXPORTER_OTLP_TRACES_HEADERS_APIKEY,
 } = process.env;
 
@@ -29,15 +29,15 @@ console.log(
 
 const resource = Resource.default().merge(
   new Resource({
-    [SEMRESATTRS_SERVICE_NAME]: 'web',
-    ['labels.serverGroup']: 'web',
-    ['labels.zone']: 'dev',
+    [SEMRESATTRS_SERVICE_NAME]: 'admin-api',
+    ['labels.serverGroup']: 'admin-api',
+    ['labels.zone']: 'dev'
   })
 );
 
 // Expoter 설정
 const otelExporter = new OTLPTraceExporter({
-  url: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT || 'http://localhost:4317',
+  url: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT || 'http://tempo:4317'
   // headers: {
   //   apiKey: OTEL_EXPORTER_OTLP_TRACES_HEADERS_APIKEY,
   // },
@@ -47,7 +47,7 @@ const otelExporter = new OTLPTraceExporter({
 const otelSDK = new opentelemetry.NodeSDK({
   resource,
   traceExporter: otelExporter,
-  instrumentations: [getNodeAutoInstrumentations()],
+  instrumentations: [getNodeAutoInstrumentations()]
 });
 
 try {

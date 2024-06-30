@@ -45,6 +45,8 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 expressjs
 RUN adduser --system --uid 1001 expressjs
 USER expressjs
+COPY --from=builder /app/apps/admin-api/src/trace.js .
 COPY --from=installer /app .
 
-CMD node apps/admin-api/dist/index.js
+CMD node --require ./trace.js apps/admin-api/dist/index.js
+# CMD node apps/admin-api/dist/index.js

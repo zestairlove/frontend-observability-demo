@@ -45,9 +45,11 @@ export const createServer = (): Express => {
     .use(cors())
     .use(metricsMiddleware)
     .get('/current-user', authUserMiddleware, (req, res) => {
+      logger.info('received request for /current-user');
       return res.json(req.currentUser || null);
     })
     .get(`/signin`, (req, res) => {
+      logger.info('received request for /signin');
       const existingUser = createRandomUser();
       const userJwt = jwt.sign(
         {
