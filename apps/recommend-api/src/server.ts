@@ -8,7 +8,7 @@ const PRODUCTS_API_ADDR =
   process.env.PRODUCTS_API_ADDR || 'http://localhost:3002';
 
 export const createServer = (): FastifyInstance => {
-  const app = Fastify({ logger: true });
+  const app = Fastify();
 
   app.register(formbody);
   app.register(cors, { origin: '*' });

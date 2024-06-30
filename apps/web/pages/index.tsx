@@ -4,7 +4,6 @@
 import { NextPage, GetServerSidePropsContext } from 'next';
 import { useQuery } from '@tanstack/react-query';
 import { AuthPayload } from '@repo/types';
-import { log } from '@repo/logger';
 import ApiGateway from '../gateways/Api.gateway';
 import * as S from '../styles/Home.styled';
 import Layout from '../components/Layout/Layout';
@@ -13,6 +12,7 @@ import Footer from '../components/Footer/Footer';
 import ProductList from '../components/ProductList/ProductList';
 import SessionGateway from '../gateways/Session.gateway';
 import { getErrorMessage } from '../utils/errors/getErrorMessage';
+import { logger } from '../utils/logger';
 
 const Home: NextPage<{ currentUser: AuthPayload | null }> = ({
   currentUser,
@@ -56,10 +56,8 @@ export const getServerSideProps = async ({
       currentUser = await SessionGateway.getCurrentUser(token);
     }
   } catch (err) {
-    log(`getCurrentUser failed: ${getErrorMessage(err)}`);
+    logger.info(`getCurrentUser failed: ${getErrorMessage(err)}`);
   }
-
-  console.log('currentUser in getServersideProps', currentUser);
 
   return {
     props: {

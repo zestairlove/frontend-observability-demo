@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { Product } from '@repo/types';
-import { log } from '@repo/logger';
 import { Select } from '@repo/ui/Select';
 import Layout from '../../../components/Layout/Layout';
 import Footer from '../../../components/Footer/Footer';
@@ -18,6 +17,7 @@ import * as S from '../../../styles/ProductDetail.styled';
 import SessionGateway from '../../../gateways/Session.gateway';
 import { getErrorMessage } from '../../../utils/errors/getErrorMessage';
 import { useUserState } from '../../../Providers/UserProvider';
+import { logger } from '../../../utils/logger';
 
 const quantityOptions = new Array(10).fill(0).map((_, i) => i + 1);
 
@@ -96,7 +96,7 @@ export const getServerSideProps = async ({
       currentUser = await SessionGateway.getCurrentUser(token);
     }
   } catch (err) {
-    log(`getCurrentUser failed: ${getErrorMessage(err)}`);
+    logger.info(`getCurrentUser failed: ${getErrorMessage(err)}`);
   }
 
   return {
