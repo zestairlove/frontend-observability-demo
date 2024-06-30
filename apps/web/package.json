@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dotenvx": "dotenvx",
-    "dev": "dotenvx run -f ../../.env.example -- next dev --turbo",
+    "dev": "NODE_OPTIONS='--require ./trace.js' dotenvx run -f ../../.env.example -- next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,6 +13,12 @@
     "@dotenvx/dotenvx": "^0.45.0",
     "@openfeature/flagd-web-provider": "^0.7.1",
     "@openfeature/react-sdk": "^0.4.1",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.47.1",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.52.1",
+    "@opentelemetry/resources": "^1.25.1",
+    "@opentelemetry/sdk-node": "^0.52.1",
+    "@opentelemetry/semantic-conventions": "^1.25.1",
     "@repo/ui": "*",
     "@tanstack/react-query": "^5.45.1",
     "cookies-next": "^4.2.1",

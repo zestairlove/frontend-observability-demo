@@ -6,7 +6,8 @@
     "FRONTEND_ADDR",
     "ADMIN_API_ADDR",
     "PRODUCT_API_ADDR",
-    "RECOMMEND_API_ADDR"
+    "RECOMMEND_API_ADDR",
+    "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT"
   ],
   "tasks": {
     "build": {
