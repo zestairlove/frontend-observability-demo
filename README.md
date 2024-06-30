@@ -6,6 +6,7 @@
 docker compose --env-file .env.example config
 
 docker compose --env-file .env.example up -d --force-recreate --remove-orphans
+docker compose --env-file .env.example up -d --force-recreate --remove-orphans --build
 
 docker compose --env-file .env.example down
 ```
