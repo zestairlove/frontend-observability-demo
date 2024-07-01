@@ -1809,6 +1809,14 @@
   dependencies:
     "@opentelemetry/core" "^1.1.0"
 
+"@opentelemetry/winston-transport@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/winston-transport/-/winston-transport-0.4.0.tgz#385700a4a240828c139dc3d61145d6a7c1644bcc"
+  integrity sha512-pWDLedHxqImrMi622QGBbuV4kMaR+DzJKHQtFHXxHt62koKy7OFqZIrPhTZj5XyAm+nM5Wy9b4YWs5QKUzLvHQ==
+  dependencies:
+    "@opentelemetry/api-logs" "^0.52.0"
+    winston-transport "4.*"
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
@@ -9466,7 +9474,7 @@ which@^4.0.0:
   dependencies:
     isexe "^3.1.1"
 
-winston-transport@^4.7.0:
+winston-transport@4.*, winston-transport@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/winston-transport/-/winston-transport-4.7.0.tgz#e302e6889e6ccb7f383b926df6936a5b781bd1f0"
   integrity sha512-ajBj65K5I7denzer2IYW6+2bNIVqLGDHqDw3Ow8Ohh+vdW+rv4MZ6eiDvHoKhfJFZ2auyN8byXieDDJ96ViONg==

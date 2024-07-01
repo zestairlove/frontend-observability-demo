@@ -51,7 +51,7 @@ yarn workspace @repo/ui add jest --dev
 **observability packages 설치**
 
 ```bash
-yarn workspace admin-api add @opentelemetry/api @opentelemetry/auto-instrumentations-node @opentelemetry/exporter-trace-otlp-http @opentelemetry/resources @opentelemetry/sdk-node @opentelemetry/semantic-conventions
+yarn workspace admin-api add @opentelemetry/api @opentelemetry/auto-instrumentations-node @opentelemetry/exporter-trace-otlp-http @opentelemetry/resources @opentelemetry/sdk-node @opentelemetry/semantic-conventions @opentelemetry/winston-transport
 ```
 
 **nextjs `--require ./trace.js` 옵션 추가 방법**

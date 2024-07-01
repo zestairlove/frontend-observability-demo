@@ -41,7 +41,7 @@ const request = async <T>({
       const responseText = await response.text();
       return JSON.parse(responseText);
     } catch (err) {
-      throw new Error(`Parse Error: ${getErrorMessage(err)}}`, {
+      throw new SyntaxError(`Parse Error: ${getErrorMessage(err)}}`, {
         cause: err,
       });
     }

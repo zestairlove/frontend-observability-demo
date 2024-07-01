@@ -7,7 +7,9 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { Product } from '@repo/types';
+import { Button } from '@repo/ui/Button';
 import { Select } from '@repo/ui/Select';
+import * as Sentry from '@sentry/nextjs';
 import Layout from '../../../components/Layout/Layout';
 import Footer from '../../../components/Footer/Footer';
 import ProductPrice from '../../../components/ProductPrice/ProductPrice';
@@ -18,6 +20,9 @@ import SessionGateway from '../../../gateways/Session.gateway';
 import { getErrorMessage } from '../../../utils/errors/getErrorMessage';
 import { useUserState } from '../../../Providers/UserProvider';
 import { logger } from '../../../utils/logger';
+import request from '../../../utils/request';
+import request2 from '../../../utils/request2';
+import { ApiError } from '../../../utils/errors/ApiError';
 
 const quantityOptions = new Array(10).fill(0).map((_, i) => i + 1);
 
@@ -43,6 +48,15 @@ const ProductDetail: NextPage = () => {
     queryFn: () => ApiGateway.getProduct(productId),
     enabled: !!productId,
   });
+
+  // const { data: mock400, refetch } = useQuery({
+  //   queryKey: ['mock400', 11],
+  //   queryFn: () => ,
+  //   enabled: false,
+  //   staleTime: 0,
+  // });
+
+  //console.log('mock400', mock400);
 
   return (
     <Layout>
@@ -76,6 +90,86 @@ const ProductDetail: NextPage = () => {
             </S.AddToCart>
           </S.Details>
         </S.Container>
+        <div>
+          <Button
+            onClick={async () => {
+              const mock400 = await request({ url: '/api/admin/mock400' });
+              console.log('mock400', mock400);
+            }}
+          >
+            mock400
+          </Button>
+          <Button
+            onClick={async () => {
+              const mock400Block = await request({ url: '/api/admin/mock400' });
+              console.log('mock400Block', mock400Block);
+            }}
+          >
+            mock400Block
+          </Button>
+          <Button
+            onClick={async () => {
+              const mock500 = await request({ url: '/api/admin/mock500' });
+              console.log('mock500', mock500);
+            }}
+          >
+            mock500
+          </Button>
+          <Button
+            onClick={async () => {
+              try {
+                const mock500 = await request({ url: '/api/admin/mock500' });
+                console.log('mock500', mock500);
+              } catch (err) {
+                if (err instanceof ApiError) {
+                  console.log('Handle ApiError', err);
+                  const error = new Error('ApiError를 처리했습니다.', {
+                    cause: err,
+                  });
+                  error.name = 'HandledException';
+                  Sentry.captureException(error);
+                } else if (err instanceof SyntaxError) {
+                  console.log('never mind');
+                } else {
+                  throw err;
+                }
+              }
+            }}
+          >
+            handle mock500 and report
+          </Button>
+        </div>
+        <div style={{ marginTop: '8px' }}>
+          <Button
+            $type="secondary"
+            onClick={async () => {
+              const mock400 = await request2({ url: '/api/admin/mock400' });
+              console.log('mock400 request2', mock400);
+            }}
+          >
+            mock400
+          </Button>
+          <Button
+            $type="secondary"
+            onClick={async () => {
+              const mock400Block = await request2({
+                url: '/api/admin/mock400',
+              });
+              console.log('mock400Block request2', mock400Block);
+            }}
+          >
+            mock400Block
+          </Button>
+          <Button
+            $type="secondary"
+            onClick={async () => {
+              const mock500 = await request2({ url: '/api/admin/mock500' });
+              console.log('mock500 request2', mock500);
+            }}
+          >
+            mock500
+          </Button>
+        </div>
         {currentUser && <Recommendations />}
       </S.ProductDetail>
       <Footer />
