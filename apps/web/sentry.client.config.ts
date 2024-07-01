@@ -1,8 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 import pjson from './package.json';
 
-console.log('Sentry.init!!!');
-
 Sentry.init({
   dsn: 'https://6a27145bec97471aef00d47d396c196b@o991552.ingest.us.sentry.io/4507527195197440',
   release: `web@${pjson.version}`,

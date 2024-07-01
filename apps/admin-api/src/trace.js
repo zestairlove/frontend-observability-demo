@@ -22,11 +22,6 @@ const {
   // OTEL_EXPORTER_OTLP_TRACES_HEADERS_APIKEY,
 } = process.env;
 
-console.log(
-  '====OTEL_EXPORTER_OTLP_TRACES_ENDPOINT====',
-  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-);
-
 const resource = Resource.default().merge(
   new Resource({
     [SEMRESATTRS_SERVICE_NAME]: 'admin-api',

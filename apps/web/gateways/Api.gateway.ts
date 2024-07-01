@@ -22,7 +22,6 @@ const Apis = () => ({
 
   listRecommendations(token?: string) {
     const headerAuth = { authorization: `Bearer ${token}` };
-    console.log('headerAuth in listRecommendations', headerAuth);
     return request<Product[]>({
       url: `${basePath}/recommendations`,
       headers: {

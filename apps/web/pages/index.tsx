@@ -14,7 +14,6 @@ import SessionGateway from '../gateways/Session.gateway';
 import { getErrorMessage } from '../utils/errors/getErrorMessage';
 import { logger } from '../utils/logger';
 import React from 'react';
-import * as Sentry from '@sentry/nextjs';
 
 const Home: NextPage<{ currentUser: AuthPayload | null }> = ({
   currentUser,
@@ -23,11 +22,6 @@ const Home: NextPage<{ currentUser: AuthPayload | null }> = ({
     queryKey: ['products'],
     queryFn: ApiGateway.listProducts,
   });
-
-  React.useEffect(() => {
-    console.log('Sentry.captureMessage', Sentry.captureMessage);
-    Sentry.captureMessage('Home page loaded');
-  }, []);
 
   return (
     <Layout>
