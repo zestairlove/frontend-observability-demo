@@ -19,7 +19,6 @@ const Header = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('data', data);
       userDispatch({
         currentUser: data.user,
         token: data.token,

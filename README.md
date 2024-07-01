@@ -1,16 +1,5 @@
 # Frontend Observability Demo
 
-## docker-compose
-
-```bash
-docker compose --env-file .env.example config
-
-docker compose --env-file .env.example up -d --force-recreate --remove-orphans
-docker compose --env-file .env.example up -d --force-recreate --remove-orphans --build
-
-docker compose --env-file .env.example down
-```
-
 ## [Loki Docker Driver](https://grafana.com/docs/loki/latest/send-data/docker-driver/)
 
 ```bash
@@ -18,6 +7,29 @@ docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all
 ```
 
 > Docker plugins are not supported on Windows; see the Docker Engine managed plugin system documentation for more information.
+
+## docker-compose
+
+```bash
+# render the configuration
+docker compose --env-file .env.example config
+
+# start the services
+docker compose --env-file .env.example up -d --force-recreate --remove-orphans
+docker compose --env-file .env.example up -d --force-recreate --remove-orphans --build
+
+# stop the services
+docker compose --env-file .env.example down
+```
+
+## services
+
+- apps
+  - web: [http://localhost:3000](http://localhost:3000)
+  - admin-api: [http://localhost:3001](http://localhost:3001)
+  - product-api: [http://localhost:3002](http://localhost:3002)
+  - recommend-api: [http://localhost:3003](http://localhost:3003)
+- grafana: [http://localhost:3200](http://localhost:3200)
 
 ## k6 script
 

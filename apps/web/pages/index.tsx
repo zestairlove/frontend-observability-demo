@@ -62,7 +62,7 @@ export const getServerSideProps = async ({
   return {
     props: {
       currentUser,
-      token,
+      ...(token ? { token } : {}),
     },
   };
 };
