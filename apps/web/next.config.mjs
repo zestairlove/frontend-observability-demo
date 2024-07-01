@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 
+import { withSentryConfig } from '@sentry/nextjs';
 const { ENV_PLATFORM, FRONTEND_ADDR } = process.env;
 
 const nextConfig = {
@@ -13,4 +14,9 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: 'netmarble-monitoring-service',
+  project: 'frontend-observability-demo',
+  // // An auth token is required for uploading source maps.
+  // authToken: process.env.SENTRY_AUTH_TOKEN,
+});

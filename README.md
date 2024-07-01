@@ -46,8 +46,23 @@ yarn workspace web add jest --dev
 yarn workspace @repo/ui add jest --dev
 ```
 
-## 기타 명령어
+## 기타 메모
+
+**observability packages 설치**
 
 ```bash
 yarn workspace admin-api add @opentelemetry/api @opentelemetry/auto-instrumentations-node @opentelemetry/exporter-trace-otlp-http @opentelemetry/resources @opentelemetry/sdk-node @opentelemetry/semantic-conventions
+```
+
+**nextjs `--require ./trace.js` 옵션 추가 방법**
+
+- NODE_OPTIONS='--require ./trace.js'
+- NEXTJS CONVENTION도 존재한다. `instrumentation.ts|js` 파일을 찾아서 자동으로 로드한다.
+
+```json
+{
+  "scripts": {
+    "dev": "NODE_OPTIONS='--require ./trace.js' dotenvx run -f ../../.env.example -- next dev --turbo"
+  }
+}
 ```
