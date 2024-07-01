@@ -6,7 +6,6 @@ import type { Empty, AuthPayload } from '@repo/types';
 import request from '../../../../utils/request';
 import { ApiError } from '../../../../utils/errors/ApiError';
 import { getErrorMessage } from '../../../../utils/errors/getErrorMessage';
-// import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
 
 type TResponse = AuthPayload | Empty;
 
@@ -44,5 +43,4 @@ const handler = async (
   }
 };
 
-// export default InstrumentationMiddleware(handler);
 export default handler;

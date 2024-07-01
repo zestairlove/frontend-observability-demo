@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Empty, Product } from '@repo/types';
 import request from '../../../utils/request';
 import { handleApiError } from '../../../utils/errors/handleApiError';
-// import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
+import { logger } from '../../../utils/logger';
 
 type TResponse = Product[] | Empty;
 
@@ -19,6 +19,7 @@ const handler = async (
   switch (req.method) {
     case 'GET': {
       try {
+        logger.info('reqeust /recommendations');
         const headerAuthValue = req.headers.authorization;
         const result = await request<Product[]>({
           url: `${RECOMMEND_API_ADDR}/recommendations`,
@@ -27,6 +28,7 @@ const handler = async (
             ...(headerAuthValue ? { authorization: headerAuthValue } : {}),
           },
         });
+        logger.info('request /recommendations success');
 
         return res.status(200).json(result);
       } catch (err) {
@@ -40,5 +42,4 @@ const handler = async (
   }
 };
 
-// export default InstrumentationMiddleware(handler);
 export default handler;

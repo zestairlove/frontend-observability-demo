@@ -5,7 +5,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Empty, AuthPayload } from '@repo/types';
 import request from '../../../../utils/request';
 import { handleApiError } from '../../../../utils/errors/handleApiError';
-// import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
 
 type TResponse = AuthPayload | Empty;
 
@@ -37,5 +36,4 @@ const handler = async (
   }
 };
 
-// export default InstrumentationMiddleware(handler);
 export default handler;

@@ -15,7 +15,7 @@ const nextConfig = {
 };
 
 export default withSentryConfig(nextConfig, {
-  org: 'netmarble-monitoring-service',
+  org: 'greatms',
   project: 'frontend-observability-demo',
   // // An auth token is required for uploading source maps.
   // authToken: process.env.SENTRY_AUTH_TOKEN,

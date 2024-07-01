@@ -3,7 +3,6 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Empty } from '@repo/types';
-// import InstrumentationMiddleware from '../../../utils/telemetry/InstrumentationMiddleware';
 
 type TResponse = string | Empty;
 
@@ -14,5 +13,4 @@ const handler = async (
   return res.status(405).send('Method not allowed');
 };
 
-// export default InstrumentationMiddleware(handler);
 export default handler;

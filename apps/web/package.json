@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dotenvx": "dotenvx",
-    "dev": "NODE_OPTIONS='--require ./trace.js' dotenvx run -f ../../.env.example -- next dev --turbo",
+    "dev": "NODE_OPTIONS='--require ./trace.js' dotenvx run -f ../../.env.example -- next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -21,6 +21,7 @@
     "@opentelemetry/resources": "^1.25.1",
     "@opentelemetry/sdk-node": "^0.52.1",
     "@opentelemetry/semantic-conventions": "^1.25.1",
+    "@repo/logger": "*",
     "@repo/ui": "*",
     "@sentry/nextjs": "8.12.0",
     "@tanstack/react-query": "^5.45.1",
