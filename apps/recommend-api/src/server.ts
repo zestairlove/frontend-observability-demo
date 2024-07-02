@@ -2,6 +2,9 @@ import Fastify, { FastifyInstance } from 'fastify';
 import formbody from '@fastify/formbody';
 import cors from '@fastify/cors';
 import seedrandom from 'seedrandom';
+import * as api from '@opentelemetry/api';
+import { logger } from './logger';
+import { logger2 } from './logger2';
 
 const ADMIN_API_ADDR = process.env.ADMIN_API_ADDR || 'http://localhost:3001';
 const PRODUCTS_API_ADDR =
@@ -14,6 +17,8 @@ export const createServer = (): FastifyInstance => {
   app.register(cors, { origin: '*' });
 
   app.get('/recommendations', async (request, reply) => {
+    logger.info('GET /recommendations');
+    logger2('GET /recommendations');
     const productResponse = await fetch(`${PRODUCTS_API_ADDR}/products`);
     const products = await productResponse.json();
     const headerAuthValue = request.headers.authorization;
@@ -28,6 +33,7 @@ export const createServer = (): FastifyInstance => {
   });
 
   app.get('/status', async (request, reply) => {
+    logger.info('GET /status');
     return { ok: true };
   });
 
@@ -43,12 +49,37 @@ function getShuffledArray(array: unknown[], rng: () => number) {
   return shuffledArray;
 }
 
-function getRecommendProducts(
+// async function getRecommendProducts(
+//   userId: string,
+//   productArray: undefined[],
+//   count = 4
+// ) {
+//   await sleep(1000);
+//   const rng = seedrandom(userId);
+//   const shuffledProducts = getShuffledArray(productArray, rng);
+//   return shuffledProducts.slice(0, count);
+// }
+
+async function getRecommendProducts(
   userId: string,
   productArray: undefined[],
   count = 4
 ) {
-  const rng = seedrandom(userId);
-  const shuffledProducts = getShuffledArray(productArray, rng);
-  return shuffledProducts.slice(0, count);
+  let shuffledProducts: unknown[] = [];
+  await api.trace
+    .getTracer('manual')
+    .startActiveSpan('getRecommendProducts', async span => {
+      span.setAttributes({ userId });
+      await sleep(1000);
+      const rng = seedrandom(userId);
+      shuffledProducts = getShuffledArray(productArray, rng).slice(0, count);
+      span.addEvent('shuffled products', { count: shuffledProducts.length });
+      await sleep(1000);
+      span.end();
+    });
+  return shuffledProducts;
+}
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -151,7 +151,10 @@ const authUserMiddleware = (
 
   try {
     const token = req.headers.authorization.substring('Bearer '.length);
-    const payload = jwt.verify(token, process.env.ENV_JWT_KEY!) as User;
+    const payload = jwt.verify(
+      token,
+      process.env.ENV_JWT_KEY || 'keyboard-cat'
+    ) as User;
     req.currentUser = {
       id: payload.id,
       email: payload.email,
