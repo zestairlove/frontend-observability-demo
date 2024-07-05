@@ -31,6 +31,12 @@ services:
     ports:
       - '${ADMIN_API_PORT}:${ADMIN_API_PORT}'
     logging: *default-logging
+    environment:
+      - ADMIN_API_PORT
+      - ENV_JWT_KEY
+      - OTEL_TRACES_SAMPLER
+      - OTEL_TRACES_SAMPLER_ARG
+      - OTEL_NODE_DISABLED_INSTRUMENTATIONS
 
   # product-api:
   #   container_name: product-api

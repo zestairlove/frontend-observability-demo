@@ -49,4 +49,3 @@ COPY --from=builder /app/apps/admin-api/src/trace.js .
 COPY --from=installer /app .
 
 CMD node --require ./trace.js apps/admin-api/dist/index.js
-# CMD node apps/admin-api/dist/index.js
