@@ -16,11 +16,6 @@ const {
   getNodeAutoInstrumentations,
 } = require('@opentelemetry/auto-instrumentations-node');
 
-console.log(
-  '!!!!! process.env.OTEL_NODE_DISABLED_INSTRUMENTATIONS !!!!!',
-  process.env.OTEL_NODE_DISABLED_INSTRUMENTATIONS
-);
-
 // process.env.NEXT_RUNTIME = nodejs | edge
 if (process.env.NEXT_RUNTIME === 'nodejs') {
   // - Otel
