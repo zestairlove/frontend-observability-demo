@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dotenvx": "dotenvx",
-    "dev": "NODE_OPTIONS='--require ./trace.js' dotenvx run -f ../../.env.example -- next dev",
+    "dev": "NODE_OPTIONS='--require @opentelemetry/auto-instrumentations-node/register' dotenvx run -f ../../.env.example -- next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -15,12 +15,7 @@
     "@openfeature/flagd-web-provider": "^0.7.1",
     "@openfeature/react-sdk": "^0.4.1",
     "@opentelemetry/api": "^1.9.0",
-    "@opentelemetry/auto-instrumentations-node": "^0.47.1",
-    "@opentelemetry/exporter-trace-otlp-grpc": "^0.52.1",
-    "@opentelemetry/exporter-trace-otlp-http": "^0.52.1",
-    "@opentelemetry/resources": "^1.25.1",
-    "@opentelemetry/sdk-node": "^0.52.1",
-    "@opentelemetry/semantic-conventions": "^1.25.1",
+    "@opentelemetry/auto-instrumentations-node": "^0.48.0",
     "@opentelemetry/winston-transport": "^0.4.0",
     "@repo/logger": "*",
     "@repo/ui": "*",

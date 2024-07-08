@@ -17,7 +17,7 @@
     "@dotenvx/dotenvx": "^0.45.0",
     "@faker-js/faker": "^8.4.1",
     "@opentelemetry/api": "^1.9.0",
-    "@opentelemetry/auto-instrumentations-node": "^0.47.1",
+    "@opentelemetry/auto-instrumentations-node": "^0.48.0",
     "@opentelemetry/exporter-trace-otlp-grpc": "^0.52.1",
     "@opentelemetry/exporter-trace-otlp-http": "^0.52.1",
     "@opentelemetry/resources": "^1.25.1",
